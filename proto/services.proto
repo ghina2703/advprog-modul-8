@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package services;
+
+// Service for processing payments (Unary)
+service PaymentService {
+  rpc ProcessPayment(PaymentRequest) returns (PaymentResponse);
+}
+
+// Service for checking transaction history (Server Streaming)
+service TransactionService {
+  rpc GetTransactionHistory(TransactionRequest) returns (stream TransactionResponse);
+}
+
+// Service for chatting with a customer service bot (Bi-Directional Streaming)
+service ChatService {
+  rpc Chat(stream ChatMessage) returns (stream ChatMessage);
+}
+
+// Request and response parameters for each service
+
+// Payment service
+message PaymentRequest {
+  string user_id = 1;
+  double amount = 2;
+}
+
+message PaymentResponse {
+  bool success = 1;
+}
+
+// Transaction service
+message TransactionRequest {
+  string user_id = 1;
+}
+
+message TransactionResponse {
+  string transaction_id = 1;
+  string status = 2;
+  double amount = 3;
+  string timestamp = 4;
+}
+
+// Chat service
+message ChatMessage {
+  string user_id = 1;
+  string message = 2;
+}
